@@ -45,7 +45,7 @@ public class CompressioniImmagini extends Application{
 		g[2][1]='g';
 		g[0][2]='b';
 		g[1][2]='v';
-		g[2][2]='n';
+		g[2][2]='g';
 
 
 
@@ -78,10 +78,11 @@ public class CompressioniImmagini extends Application{
 			for(int c=1;c<g.length;c++) {
 				if(g[c-1][rige]==g[c][rige]) {
 					contatore++;
+				}else{
+					v[rige]+=my_dict.get(contatore)+24;
 				}
-				v[rige]+=my_dict.get(contatore)+24;
-
 			}
+			v[rige]+=my_dict.get(contatore)+24;
 		}
 		for(int p=0;p<v.length;p++) {
 			compresso+=v[p];
