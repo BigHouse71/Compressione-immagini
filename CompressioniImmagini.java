@@ -1,5 +1,7 @@
 package it.edu.iisgubbio.TPSIT;
 
+
+import java.util.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -19,12 +21,21 @@ public class CompressioniImmagini extends Application{
 	Label eCompresso=new Label("Compresso");
 	Label eNonCompresso=new Label(" non Compresso");
 	Label ePercentuale=new Label("percentuale compressione");
-
+	Hashtable<Integer,Integer> my_dict = new Hashtable<Integer,Integer>();
 	Button bCalcola=new Button("Calcola");
 	TextField cCompresso=new TextField();
 	GridPane griglia=new GridPane();
 
 	public void start(Stage finestra) {
+		my_dict.put(1, 1);
+		my_dict.put(2, 2);
+		my_dict.put(3, 2);
+		my_dict.put(4, 3);
+		my_dict.put(5, 3);
+		my_dict.put(6, 3);
+		my_dict.put(7, 3);
+		my_dict.put(8, 4);
+
 
 		g[0][0]='v';
 		g[1][0]='b';
@@ -45,7 +56,7 @@ public class CompressioniImmagini extends Application{
 		griglia.add(nCompresso, 1, 0);
 		griglia.add(cCompresso, 1, 1);
 		griglia.add(cPercentuale, 1, 2);
-;
+		
 		griglia.setHgap(15);
 		griglia.setVgap(15);
 		griglia.setPadding(new Insets(10,10,10,10));
@@ -57,15 +68,31 @@ public class CompressioniImmagini extends Application{
 	}
 
 	public void Calcola() {
-		int v[]=new int [g.length];
-		for(int colonna=0;colonna<g.length;colonna++) {
-			for(int riga=0;riga<g.length;riga++) {
-				if(g[0][colonna]==g[riga][colonna]) {
-					v[colonna]+=1;
+		double nCompress=g[0].length*g.length*24;
+		nCompresso.setText(""+nCompress);
+		int compresso=0;
+		int contatore=1;
+		int v[]=new int[g.length];
+		
+		for(int rige=0;rige<g.length;rige++,contatore=1) {
+			for(int c=1;c<g.length;c++) {
+				if(g[c-1][rige]==g[c][rige]) {
+					contatore++;
 				}
+				v[rige]+=my_dict.get(contatore)+24;
+
 			}
 		}
+		for(int p=0;p<v.length;p++) {
+			compresso+=v[p];
+		}
+		cCompresso.setText(""+compresso);
+		
+		double perCompresso=compresso/nCompress*100;
+		double bho=100-perCompresso;
+		cPercentuale.setText(""+bho);
 	}
+	
 
 
 
